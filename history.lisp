@@ -1,6 +1,12 @@
 ;; Script to create "History lesson" solution from icfp-history.txt.
-;; The generated solution needs to formatting by hand to create a
-;; proper box-shaped box befor submitting.
+;; The generated solution needs some formatting by hand to create a
+;; proper box-shaped box before submitting.
+
+;; Solution approach:
+;; We just output the characters sequentially.
+;; To generate shorter code, we keep track of the contents of
+;; both hands, and try to generate minimal code sequences to compute
+;; the next character value from either A or B.
 
 
 (defvar *text* (uiop:read-file-string "icfp-history.txt"))
@@ -9,6 +15,9 @@
   (abs (- a b)))
 
 (defun arith-from-to (a b to)
+  "Generate a short code sequence to put TO in the main hand.
+A and B are the current hand contents.
+Returns the code sequence as a string and the new value of the off-hand."
   (cond ((= a to)
 	 (values "" b))
 	((eql b to) (values "W" a))
@@ -82,13 +91,8 @@ and send it to output."
     (format t "Input length: ~D, output length: ~D~%" (length text) (length long))
     long))
 
-(defun peephole-opt (code)
-  ;; M9+M5+ ==> M7W++
-  ;; M9+M7+ ==> M8W++
-  ;; M9+M9+ ==> M9W++
-  code)
-
 (defun format-square (code)
+  "Format code into a square, reversing alternating lines."
   (let ((width (+ (floor (sqrt (length code))) 2))
 	(left-to-right t)
 	(lines nil)
@@ -114,6 +118,7 @@ and send it to output."
     
 	     
 (defun doit ()
+  "Generate solution and write it to file history.man"
   (let* ((lines (format-square (encode *text*)))
 	 (width (apply #'max (mapcar #'length lines)))
 	 (height (length lines)))
