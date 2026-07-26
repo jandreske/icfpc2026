@@ -68,3 +68,6 @@ Unused so far: q, R, U, Y, %, &, |, ~, }.
 
 It's ok that we have not used **Y** so far, but the absence of **S**, **R**, and **U**
 seems suspicious.
+
+**S** could be used to duplicate a pipe, **R** could be used
+to join pipes, and so on.
