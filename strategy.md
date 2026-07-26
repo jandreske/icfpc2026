@@ -25,8 +25,13 @@ structured littleman code.
 
 Which components do we need and how should their APIs look like?
 
-Components can also be made up be smaller components, so perhaps
-a virtual "meta"-box would be helpful.
+Components don't have to be a single box but can also be made up
+of smaller components.
+
+For example, a matrix multiplication might be built using a
+buffer, a transposer, a repeater, and a pairwise multiply and sum
+component.
+
 
 TODO
 
