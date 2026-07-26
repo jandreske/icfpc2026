@@ -5,6 +5,9 @@
 
 (defvar *text* (uiop:read-file-string "icfp-history.txt"))
 
+(defun delta (a b)
+  (abs (- a b)))
+
 (defun arith-from-to (a b to)
   (cond ((= a to) "")
 	((eql b to) (values "W" a))
@@ -20,11 +23,15 @@
 	 (values (format nil "~DN+" (- b to)) b))
 	((<= (+ a 1) to (+ a 9)) (values (format nil "M~D+" (- to a)) a))
 	((<= (- a 9) to (- a 1)) (values (format nil "M~DN+" (- a to)) a))
-	((>= to (- (* 2 a) 9))
+	((and (> to a) (< (delta to (* 3 a)) (delta to (* 2 a))))
+	 (multiple-value-bind (insts b2)
+	     (arith-from-to (* 3 a) a to)
+	   (values (format nil "M++~A" insts) b2)))
+	((and (> to a) (< (delta to (* 2 a)) (delta to a)))
 	 (multiple-value-bind (insts b2)
 	     (arith-from-to (* 2 a) a to)
 	   (values (format nil "M+~A" insts) b2)))
-	((<= to (+ (floor a 2) 9))
+	((and (< to a) (< (delta to (floor a 2)) (delta to a)))
 	 (multiple-value-bind (insts b2)
 	     (arith-from-to (floor a 2) (mod a 2) to)
 	   (values (format nil "M2W/~A" insts) b2)))
