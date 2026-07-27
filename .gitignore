@@ -1,3 +1,7 @@
 *~
 *.bak
 *.log
+
+*.man
+*.o
+a.out

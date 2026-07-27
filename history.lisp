@@ -12,6 +12,15 @@
 (defvar *text*
   "1996: Philadelphia, PA, USA \"Optimality and inefficiency: What isn't a cost model of the lambda calculus?\" (Julia Lawall and Harry Mairson); 1997: Amsterdam, Netherlands \"Functional reactive animation\" (Conal Elliott and Paul Hudak); 1998: Baltimore, MD, USA \"Cayenne - a language with dependent types\" (Lennart Augustsson); 1999: Paris, France \"Haskell and XML: Generic combinators or type-based translation?\" (Malcolm Wallace and Colin Runciman); 2000: Montreal, Canada \"QuickCheck: a lightweight tool for random testing of Haskell programs\" (Koen Claessen and John Hughes); 2001: Florence, Italy \"Recursive Structures for Standard ML\" (Claudio Russo); 2002: Pittsburgh, PA, USA \"Contracts for higher-order functions\" (Robert Findler and Matthias Felleisen); 2003: Uppsala, Sweden \"MLF: Raising ML to the Power of System F\" (Didier Le Botlan and Didier Remy); 2004: Snowbird, UT, USA \"Scrap More Boilerplate: Reflection, Zips, and Generalised Casts\" (Ralf Lammel and Simon Peyton Jones); 2005: Tallinn, Estonia \"Associated Type Synonyms\" (Manuel M. T. Chakravarty, Gabriele Keller, and Simon Peyton Jones); 2006: Portland, OR, USA \"Simple unification-based type inference for GADTs\" (Simon Peyton Jones, Dimitrios Vytiniotis, Stephanie Weirich, and Geoffrey Washburn); 2007: Freiburg, Germany \"Ott: Effective Tool Support for the Working Semanticist\" (Peter Sewell, Francesco Zappa Nardelli, Scott Owens, Gilles Peskine, Thomas Ridge, Susmit Sarkar, and Rok Strnisa); 2008: Victoria, BC, Canada \"Parametric higher-order abstract syntax for mechanized semantics\" (Adam Chlipala); 2009: Edinburgh, UK \"Runtime Support for Multicore Haskell\" (Simon Marlow, Simon Peyton Jones, and Satnam Singh); 2010: Baltimore, MD, USA \"Abstracting abstract machines\" (David Van Horn and Matthew Might); 2011: Tokyo, Japan \"Frenetic: a network programming language\" (Nate Foster, Rob Harrison, Michael Freedman, Christopher Monsanto, Jennifer Rexford, Alex Story, and David Walker); 2012: Copenhagen, Denmark \"Addressing covert termination and timing channels in concurrent information flow systems\" (Deian Stefan, Alejandro Russo, Pablo Buiras, Amit Levy, John C. Mitchell and David Mazieres); 2013: Boston, MA, USA \"Handlers in Action\" (Ohad Kammar, Sam Lindley, and Nicolas Oury); 2014: Gothenburg, Sweden \"Refinement Types for Haskell\" (Niki Vazou, Eric L. Seidel, Ranjit Jhala, Dimitrios Vytiniotis, and Simon Peyton-Jones); 2015: Vancouver, BC, Canada \"1ML - core and modules united (F-ing first-class modules)\" (Andreas Rossberg); 2016: Nara, Japan; 2017: Oxford, UK; 2018: St. Louis, MO, USA; 2019: Berlin, Germany; 2020: Jersey City, NJ, USA (virtual); 2021: Daejeon, South Korea (virtual); 2022: Ljubljana, Slovenia; 2023: Seattle, WA, USA; 2024: Milan, Italy; 2025: Singapore, Singapore; 2026: Indianapolis, IN, USA")
 
+(defun charfreq (s)
+  (let ((table (make-hash-table :test #'eql))
+	(list nil))
+    (loop for c across s do
+	  (incf (gethash c table 0)))
+    (maphash #'(lambda (k v) (push (cons k v) list)) table)
+    (coerce (mapcar #'car (sort list #'(lambda (a b) (> a b)) :key #'cdr))
+	    'string)))
+    
 (defun delta (a b)
   (abs (- a b)))
 
@@ -168,15 +177,8 @@ and send it to output."
       (format out "+")
       (loop for i from 1 to width do (format out "-"))
       (format out "+~%+-+ v~%|O|<<~%+-+~%"))))
-	    
-(defparameter *codes*
-  " aeniotrsl,dmcSuh\"0:2ypgf;AM()bC1RPkUJLwFvD9HB-GTONWKVE.j6Ix78345z?Z'XQ")
 
-;; Convert codes to output:
-;; >@rbd`32`          v
-;; s   >md`96`        v
-;;       >dm`101`     v
-
+(defvar *codes* (charfreq *text*))
 
 (defun text-to-codes (text)
   (loop for c across text
