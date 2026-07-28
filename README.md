@@ -57,9 +57,9 @@ Submitted a working solution at CT 00:05:56.
 ### History
 
 Chris wrote a small Lisp program to convert each letter into
-```<ascii code`s`` and format those into a square box, reversing
+`` `<ascii code>`s `` and format those into a square box, reversing
 each second line. Apart from being very large, that does not work
-because the backticks match in vertical diretion, too, ans it is an error
+because the backticks match in vertical direction, too, and it is an error
 if there's anything other than a space or digit between them.
 So the code was changed to generate the codes using arithmetic instead,
 starting from the code of the last letter. This yielded a working
