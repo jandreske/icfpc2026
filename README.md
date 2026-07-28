@@ -117,7 +117,8 @@ We did not solve any of the other problems. At the time the scoreboard
 was frozen, we were right in the middle, around rank 90.
 
 We wrote a [strategy outline](strategy.md) for the problems we did not solve,
-but did not get to work in that direction due to the real world intervening.
+but did not get further than devising rough outlines for some of the problems
+due to the real world intervening.
 
 A small component library is in the [components](components/) folder.
 

@@ -1,0 +1,65 @@
+# Gradebook problem
+
+4-16 Students
+1-4 Subjects
+
+
+
+Subroutines:
+
+- Lookup index by student id
+- get student id by index
+- sum all grades of given subject
+
+
+## Program outline
+
+START:
+
+Copy first round input into repeater.
+
+ROUND:
+
+1. read count (store somewhere?)
+2. while count > 0
+    1. read OP
+    2. go to OP subroutine
+    3. decrement count
+
+### OP subroutines
+
+#### GET
+
+1. read student id
+2. read subject
+3. move near repeater input
+4. read N
+5. read K
+6. while N > 0
+    1. read student id
+    2. if correct id set flag else clear flag
+    3. J = 1
+    4. while J <= k
+        1. read score
+        2. if J == subject and flag set: send to output
+	3. increment J
+    5. decrement N
+
+#### SET
+
+1. read student id
+2. read subject
+3. read grade
+4. move near repeater input
+5. read N
+6. read K
+7. while N > 0
+    1. read student id
+    2. if correct id set flag else clear flag
+    3. J = 1
+    4. while J <= k
+        1. read grade
+        2. if J == subject and flag set: send to output
+	3. increment J
+    5. decrement N
+    
